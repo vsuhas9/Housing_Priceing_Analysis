@@ -1,0 +1,28 @@
+Series ID,Title,Basic Category,Broad Category
+CPIHOSNS,Consumer Price Index for All Urban Consumers: Housing in U.S. City,Transportation,Construction
+CSUSHPINSA,S&P/Case-Shiller U.S. National Home Price Index,Target,Target
+CUUR0000SA0R,Consumer Price Index for All Urban Consumers: Purchasing Power of the,Purchasing,Purchasing
+CUUR0000SAH1,Consumer Price Index for All Urban Consumers: Shelter in U.S. City,Transportation,Construction
+CUUR0000SASL2RS,Consumer Price Index for All Urban Consumers: Services Less Rent of,Rent,Rent
+CUUR0000SEHA,Consumer Price Index for All Urban Consumers: Rent of Primary,Rent,Rent
+CUUR0000SEHD,Consumer Price Index for All Urban Consumers: Tenants' and Household,Transportation,Construction
+PCU236223236223,Producer Price Index by Industry: New Office Building Construction,Transportation,Construction
+PCU2381MR2381MR,Producer Price Index by Industry: Nonresidential Building Maintenance,Transportation,Construction
+PCU23821X23821X,"Producer Price Index by Industry: Electrical Contractors,",Transportation,Construction
+PCU23822X23822X,"Producer Price Index by Industry: Plumbing, Heating and",Transportation,Construction
+PCU32712032712011,Producer Price Index by Industry: Clay Building Material and,Transportation,Construction
+PCU327331327331,Producer Price Index by Industry: Concrete Block and Brick,Transportation,Construction
+PCU32733132733106,Producer Price Index by Industry: Concrete Block and Brick,Transportation,Construction
+PCU32733273,Producer Price Index by Industry: Cement and Concrete Product,Transportation,Construction
+PCU3274203274201,Producer Price Index by Industry: Gypsum Product Manufacturing: Gypsum,Transportation,Construction
+PCU3323113323111,Producer Price Index by Industry: Prefabricated Metal Buildings and,Transportation,Construction
+PCU33231233231211,Producer Price Index by Industry: Fabricated Structural Metal,Transportation,Construction
+PCU333120333120,Producer Price Index by Industry: Construction Machinery Manufacturing,Transportation,Construction
+PCU3334133341,Producer Price Index by Industry: HVAC and Commercial Refrigeration,Transportation,Construction
+PCU333415333415,"Producer Price Index by Industry: Air-Conditioning, Refrigeration, and",Transportation,Construction
+PCU44414441,Producer Price Index by Industry: Building Material and Supplies,Transportation,Construction
+PCU484484,Producer Price Index by Industry: Truck Transportation,Transportation,Construction
+PCU541810541810,Producer Price Index by Industry: Advertising Agencies,Advertising,Construction
+WPU101,Producer Price Index by Commodity: Metals and Metal Products: Iron and,Transportation,Construction
+WPU12310101,Producer Price Index by Commodity: Furniture and Household Durables:,Transportation,Construction
+WPUSI012011,Producer Price Index by Commodity: Special Indexes: Construction,Transportation,Construction
