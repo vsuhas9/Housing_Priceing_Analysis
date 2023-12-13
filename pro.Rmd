@@ -1,0 +1,299 @@
+---
+title: "project"
+author: "Harshitha"
+date: '2023-12-13'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# install needed libraries
+install.packages("tidymodels")
+install.packages("skimr")
+install.packages("Metrics")
+install.packages("tidymodels")
+```
+
+```{r}
+# Load the needed libraries
+library(dplyr)
+library(tidyverse)
+library(tidymodels)
+library(glmnet)
+library(corrplot)
+library(skimr)
+library(randomForest)
+library(naivebayes)
+library(class)
+library(caret)
+library(e1071)
+library(xgboost)
+library(Metrics)
+```
+
+```{r}
+install.packages("fpp3")
+install.packages("tidyverse")
+install.packages("knitr")
+install.packages("lubridate")
+install.packages("patchwork")
+install.packages("maps")
+install.packages("forecast")
+install.packages("tseries")
+install.packages("sarima")
+install.packages("kableExtra")
+install.packages("reshape2")
+install.packages("dplyr")
+install.packages("prophet")
+```
+
+```{r}
+library(fpp3)
+library(tidyverse)
+library(knitr)
+library(lubridate)
+library(patchwork)
+#library(maps)
+library(forecast)
+library(tseries)
+#library(sarima)
+#library(kableExtra)
+library(reshape2)
+library(dplyr)
+#library(prophet)
+```
+
+
+```{r}
+data<-read.csv("Clean_House_Pricing_Index.csv")
+```
+
+
+```{r}
+str(data)
+```
+```{r}
+summary(data)
+```
+
+```{r}
+print(rowSums(is.na(data)))
+```
+
+
+```{r}
+colSums(is.na(data))
+```
+
+
+```{r}
+show(data)
+```
+
+
+```{r}
+ggplot(data, aes(x = Immigration.Count
+, fill = as.factor(Inflation))) +
+  geom_histogram(position = "fill") +
+  labs(fill = "Inflation")
+```
+
+```{r}
+# Exclude the 'DATE' column as it is of character type
+numeric_data <- data[, -1]
+
+# Calculate the correlation matrix using Pearson method
+correlation_matrix <- cor(numeric_data, use = "pairwise.complete.obs")
+
+# Print the correlation matrix
+print(correlation_matrix)
+
+```
+```{r}
+library(ggplot2)
+library(reshape2)
+
+# Create a heatmap using ggplot2
+ggplot(data = melt(correlation_matrix), aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Correlation Heatmap")
+```
+```{r}
+# Linear regression for Per.Capita
+model_per_capita <- lm(Per.Capita ~ Immigration.Count+Inflation+Construction+Purchasing, data = data)
+
+```
+
+```{r}
+library(randomForest)
+model_rf_per_capita <- randomForest(Per.Capita ~ Immigration.Count + Inflation + Construction + Purchasing, data = data)
+
+```
+
+```{r}
+library(e1071)
+model_svm_per_capita <- svm(Per.Capita ~ Immigration.Count + Inflation + Construction + Purchasing, data = data)
+
+
+```
+
+
+
+```{r}
+# Load required libraries
+library(forecast)
+library(ggplot2)
+
+# Load your dataset
+# Assuming 'data' is your dataframe
+
+# Convert 'DATE' column to Date format
+data$DATE <- as.Date(data$DATE, format = "%m-%d-%Y")
+
+# Create a time series object
+ts_data <- ts(data$Per.Capita, start = min(data$DATE), end = max(data$DATE), frequency = 1)
+
+# Check if the time series has at least 2 periods
+if (length(ts_data) < 2) {
+  stop("Time series has no or less than 2 periods. Unable to decompose.")
+}
+
+# Explore the time series
+# Explore the time series
+plot(ts_data, main = "Per.Capita Time Series")
+
+
+
+
+```
+```{r}
+# Assuming 'ts_data' is your time series object
+plot(ts_data, main = "Per.Capita Time Series")
+
+length(ts_data)
+
+```
+
+```{r}
+ts_df<- data[,c('Rent','Purchasing')]
+sum(is.na(ts_df))
+```
+```{r}
+# Assuming 'data' is your dataframe and 'Rent' is in Date format
+
+ggplot(data = data ,aes(x = DATE, y=Target)) +
+  geom_line(color = "red") +
+  xlab("Year") +
+  ylab ("Price in K")+
+  ggtitle("House Prices over time") +
+  scale_x_date(date_labels = "%Y", breaks = "2 year") +
+  theme(axis.text.x = element_text(angle = 90,hjust = 1))
+```
+
+```{r}
+boxplot(data$Target)
+```
+
+```{r}
+model1<- arima(data$Target, order = c(1,0,0), method = "ML")
+summary(model1)
+```
+```{r}
+# Load the forecast package
+library(forecast)
+
+# Assuming 'data' is your data frame
+data$DATE <- as.Date(data$DATE, format="%Y-%m-%d")
+
+# Create a time series object
+your_ts <- ts(data$Target, frequency = 12)  # Assuming monthly data
+
+# Fit ARIMA model
+model1 <- arima(data$Target, order = c(1, 0, 0), method = "ML")
+
+# Forecast using the ARIMA model
+your_forecast <- forecast(model1, h = 20)  # Adjust 'h' as needed
+
+# Plot the original series and forecast
+plot(your_ts, main = "ARIMA Model Forecast", ylab = "Target", xlab = "Date")
+lines(your_forecast$mean, col = "red")
+
+
+
+# Add legend
+legend("topright", legend = c("Actual", "Forecast", "95% CI"), col = c("black", "red", "blue"), lty = 1:2)
+
+```
+
+
+
+
+
+```{r}
+auto.arima(data$Target,stationary=FALSE,allowdrift=FALSE,
+seasonal=FALSE,stepwise=FALSE,approximation=FALSE)
+```
+
+```{r}
+best_model <- arima(data$Target, order = c(1,1,2) )
+forecast::checkresiduals(best_model)
+```
+
+```{r}
+library(prophet)
+prophet_data = data %>% 
+    rename(ds = DATE, # Have to name our date variable "ds"
+    y = Target)  # Have to name our time series "y"
+```
+
+```{r}
+
+train = prophet_data %>% 
+  filter(ds<ymd("2022-12-01"))
+
+test = prophet_data %>%
+  filter(ds>=ymd("2022-12-01"))
+
+```
+
+```{r}
+model = prophet(train)
+```
+
+
+```{r}
+future = make_future_dataframe(model,periods = 20)
+
+forecast = predict(model,future)
+```
+
+```{r}
+plot(model,forecast)+
+ylab("Pricing")+xlab("Date")+theme_bw()
+
+```
+
+```{r}
+plot(model,forecast)+
+ylab("Pricing")+xlab("Date")+theme_bw()
+```
+
+
+```{r}
+dyplot.prophet(model,forecast)
+
+```
+
+```{r}
+
+# Save the yearly forecast in an RDS file
+saveRDS(pro.rmd, "yearly_forecast.rds")
+
+```
+
